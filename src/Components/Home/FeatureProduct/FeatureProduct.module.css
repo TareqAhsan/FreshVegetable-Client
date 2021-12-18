@@ -1,0 +1,25 @@
+.custom{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-gap: 10px;
+    margin: 0 auto;
+
+}
+
+@media only screen and (max-width: 600px){
+    .custom{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-gap: 7px;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width:992px){
+    .custom{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        grid-gap: 8px;
+        margin: 0 auto;
+    }
+}
