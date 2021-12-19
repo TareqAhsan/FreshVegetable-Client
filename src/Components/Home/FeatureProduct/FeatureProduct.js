@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import styles from './FeatureProduct.module.css'
-import { Container, Row } from "react-bootstrap";
+import styles from "./FeatureProduct.module.css";
+import { Container, Row, Spinner } from "react-bootstrap";
 import Product from "../../Product/Product";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "../../../Redux/slices/productSlice";
@@ -40,17 +40,20 @@ const Products = [
   },
 ];
 const FeatureProduct = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchProducts())
+    dispatch(fetchProducts());
   }, [dispatch]);
-  const products = useSelector(state=>state.products.discover)
+  const products = useSelector((state) => state.products.discover);
   return (
     <div>
       <Container className="my-4">
+        {!products.length && (
+          <Spinner animation="border" variant="success"></Spinner>
+        )}
         <h3 className="my-5">Seasonal Trending Product</h3>
-        <div   className={styles.custom}>
-          {products.slice(0,10).map((product) => (
+        <div className={styles.custom}>
+          {products.slice(0, 10).map((product) => (
             <Product product={product} key={product._id}></Product>
           ))}
         </div>

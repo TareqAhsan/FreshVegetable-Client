@@ -1,34 +1,45 @@
 import React, { useState } from "react";
-import { Badge } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import FruitProduct from "../../FruitProduct/FruitProduct";
+import Products from "../../Products/Products";
+import VegetableProduct from "../../VegetableProduct/VegetableProduct";
+import Navigation from "../Navigation/Navigation";
 
 const Category = () => {
   const [state, setState] = useState("all");
   return (
-    <div>
-        <Badge
-        pill
-        bg="info"
-        className="btn m-1"
-        onClick={() => setState("all")}
-      ></Badge>
-      <Badge
-        pill
-        bg="info"
-        className="btn m-1"
-        onClick={() => setState("vegetable")}
-      >
-        vegetable
-      </Badge>
-      <Badge
-        pill
-        bg="primary"
-        className="btn"
-        onClick={() => setState("fruit")}
-      >
-        Fruit
-      </Badge>
-      {state === 'vegetable' && <}
-    </div>
+    <>
+      <Navigation />
+      <div className="my-3">
+        <Button
+          variant="secondary"
+          size="sm"
+          className="m-1"
+          onClick={() => setState("all")}
+        >
+          All
+        </Button>
+        <Button
+          variant="secondary"
+          size="sm"
+          className=" m-1"
+          onClick={() => setState("vegetable")}
+        >
+          vegetable
+        </Button>
+        <Button
+          variant="secondary"
+          size="sm"
+          className=" m-1"
+          onClick={() => setState("fruit")}
+        >
+          Fruit
+        </Button>
+        {state === "all" && <Products />}
+        {state === "vegetable" && <VegetableProduct />}
+        {state === "fruit" && <FruitProduct />}
+      </div>
+    </>
   );
 };
 

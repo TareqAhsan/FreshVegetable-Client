@@ -14,15 +14,42 @@ export const fetchProducts = createAsyncThunk(
     return result
   }
 )
-export const fetchSearch = createAsyncThunk(
-  'product/fetchSearch',
-  async (search) => {
-    const response = await fetch(`http://localhost:5000/products/search?val=${search}`)
+export const fetchVegetable = createAsyncThunk(
+  'product/fetchVegetable',
+  async () => {
+    const response = await fetch('http://localhost:5000/product/vegetable')
     const result = await response.json()
     // console.log(result)
     return result
   }
 )
+export const fetchFruit = createAsyncThunk(
+  'product/fetchFruit',
+  async () => {
+    const response = await fetch('http://localhost:5000/product/fruit')
+    const result = await response.json()
+    // console.log(result)
+    return result
+  }
+)
+export const  myOrder= createAsyncThunk(
+  'product/myOrder',
+  async (email) => {
+    const response = await fetch(`http://localhost:5000/product/myOrder?email=${email}`)
+    const result = await response.json()
+    // console.log(result)
+    return result
+  }
+)
+// export const fetchSearch = createAsyncThunk(
+//   'product/fetchSearch',
+//   async (search) => {
+//     const response = await fetch(`http://localhost:5000/products/search?val=${search}`)
+//     const result = await response.json()
+//     // console.log(result)
+//     return result
+//   }
+// )
 export const fetchSingleProducts = createAsyncThunk(
   'product/fetchSingleproducts',
   async (id) => {
@@ -40,7 +67,10 @@ export const productSlice = createSlice({
       discover:[],
       singleProduct:[],
       users:[],
-      search:[]
+      search:[],
+      vegetable:[],
+      fruit:[],
+      myOrder:[]
   },
   reducers: {
     increment: (state) => {
@@ -64,12 +94,27 @@ export const productSlice = createSlice({
       // Add user to the state array
       // console.log(action.payload)
       state.singleProduct=action.payload
-    })
-    builder.addCase(fetchSearch.fulfilled, (state, action) => {
+    });
+    builder.addCase(fetchVegetable.fulfilled, (state, action) => {
       // Add user to the state array
-      console.log(action.payload)
-      state.search=action.payload
-    })
+      // console.log(action.payload)
+      state.vegetable=action.payload
+    });
+    builder.addCase(fetchFruit.fulfilled, (state, action) => {
+      // Add user to the state array
+      // console.log(action.payload)
+      state.fruit=action.payload
+    });
+    builder.addCase(myOrder.fulfilled, (state, action) => {
+      // Add user to the state array
+      // console.log(action.payload)
+      state.myOrder=action.payload
+    });
+    // builder.addCase(fetchSearch.fulfilled, (state, action) => {
+    //   // Add user to the state array
+    //   console.log(action.payload)
+    //   state.search=action.payload
+    // })
   },
   // extraReducers: (builder) => {
   //   // Add reducers for additional action types here, and handle loading state as needed

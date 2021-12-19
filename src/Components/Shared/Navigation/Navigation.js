@@ -38,12 +38,12 @@ const Navigation = () => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ms-auto d-flex align-items-center">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
-              <Nav.Link as={Link} to="/products">Products</Nav.Link>
+              <Nav.Link as={Link} to="/category">Products</Nav.Link>
               {user?.email && (
-                <Nav.Link href="#pricing">
+                <Nav.Link as={Link} to="/dashboard">
                   <Button
                     style={{ borderRadius: "15px" }}
-                    className="btn btn-primary px-3 me-2 w-100"
+                    className="btn btn-success px-3 me-2 w-100"
                   >
                     Dashboard
                   </Button>
@@ -65,7 +65,7 @@ const Navigation = () => {
                   <Button
                     style={{ borderRadius: "15px" }}
                     onClick={handleLogout}
-                    className="btn btn-primary px-2 me-2 w-100"
+                    className="btn btn-success px-2 me-2 w-100"
                   >
                     Logout
                   </Button>

@@ -2,8 +2,11 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { fetchProducts } from "../../../Redux/slices/productSlice";
 
 const AddProduct = () => {
+  const dispatch = useDispatch()
   const {
     register,
     handleSubmit,
@@ -30,7 +33,8 @@ const AddProduct = () => {
       .then((result) => {
         console.log("Success:", result);
         if (result.insertedId) {
-          toast.success("Expert Added Successfully");
+          toast.success("Product Added Successfully");
+          dispatch(fetchProducts())
           reset();
         }
       })
@@ -42,7 +46,7 @@ const AddProduct = () => {
     <div>
       <Container className="py-4">
         <Toaster position="top-center" reverseOrder={true} />
-        <h1 className="display-6">Add Experts</h1>
+        <h1 className="display-6">Add Product</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="shadow p-4">
           <input
             {...register("name")}

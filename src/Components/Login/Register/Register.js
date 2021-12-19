@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import useFirebase from "../../../hooks/useFirebase";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import Navigation from "../../Shared/Navigation/Navigation";
 // import useAuth from "../../../hooks/useAuth";
 const Register = () => {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const Register = () => {
   };
   return (
     <div>
+        <Navigation />
       <h1 className="my-4 display-5">Please Register</h1>
       <Container>
         <form

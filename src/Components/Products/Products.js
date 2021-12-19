@@ -1,26 +1,44 @@
 import React, { useEffect, useState } from "react";
 import styles from "../Home/FeatureProduct/FeatureProduct.module.css";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, fetchSearch } from "../../Redux/slices/productSlice";
 import Product from "../Product/Product";
+import axios from "axios";
 
 const Products = () => {
-  const [allProduct, setAllProduct] = useState(false);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+  const [allProduct, setAllProduct] = useState();
+  // const dispatch = useDispatch();
+  // const products = useSelector((state) => state.products.discover);
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     const search = e.target.value;
-    setAllProduct(true);
-    dispatch(fetchSearch(search));
+    axios(`http://localhost:5000/products/search?val=${search}`).then(
+      (result) => {
+        if (result.data) {
+          setAllProduct(result.data);
+        }
+      }
+    );
+    // dispatch(fetchSearch(search));
+    // setAllProduct(true);
   };
-  const products = useSelector((state) => state.products.discover);
-  const search = useSelector((state) => state.products.search);
+  useEffect(() => {
+    axios("http://localhost:5000/products").then((result) => {
+      setAllProduct(result.data);
+    });
+  }, []);
+  // const products = useSelector((state) => state.products.discover);
+  // const search = useSelector((state) => state.products.search);
   return (
-    <div>
+    <div className="my-3">
+      {!allProduct?.length && (
+        <Spinner
+          animation="border"
+          variant="success"
+          style={{ height: "2.5rem", width: "2.5rem" }}
+        ></Spinner>
+      )}
       <Container>
         <input
           onChange={handleChange}
@@ -30,21 +48,11 @@ const Products = () => {
           style={{ borderRadius: "8px" }}
           placeholder="search Any vegetables or Fruits By Name"
         />
-
-        {allProduct ? (
-            <><h5 className="display-6 text-success"> {search?.length} results found</h5>
-          <div className={styles.custom}>
-            {search?.map((product) => (
-              <Product product={product} key={product._id}></Product>
-            ))}
-          </div></>
-        ) : (
-          <div className={styles.custom}>
-            {products?.map((product) => (
-              <Product product={product} key={product._id}></Product>
-            ))}
-          </div>
-        )}
+        <div className={styles.custom}>
+          {allProduct?.map((product) => (
+            <Product product={product} key={product._id}></Product>
+          ))}
+        </div>
       </Container>
     </div>
   );

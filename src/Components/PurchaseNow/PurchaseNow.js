@@ -8,6 +8,7 @@ import { fetchSingleProducts } from "../../Redux/slices/productSlice";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import Navigation from "../Shared/Navigation/Navigation";
 
 const PurchaseNow = () => {
   const { id } = useParams();
@@ -35,6 +36,7 @@ const PurchaseNow = () => {
     if (confirm) {
       data.image = singleProduct?.image;
       data.status = "pending";
+      data.name = singleProduct?.name;
       data.price = singleProduct?.price;
       data.category = singleProduct?.category;
       axios.post(`http://localhost:5000/addOrder`,data)
@@ -48,6 +50,7 @@ const PurchaseNow = () => {
   };
   return (
     <div>
+      <Navigation/>
       <h1 className="display-6 my-4">Confirm Order for {singleProduct.name}</h1>
       <Container>
       <Toaster className="my-4" position="top-center" reverseOrder={true} />

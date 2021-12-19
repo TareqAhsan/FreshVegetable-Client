@@ -15,6 +15,13 @@ import PrivateRoute from "./Components/Login/PrivateRoute/PrivateRoute";
 import PurchaseNow from "./Components/PurchaseNow/PurchaseNow";
 import Dashboard from "./Components/Dashboard/Dashboard/Dashboard";
 import Products from "./Components/Products/Products";
+import Category from "./Components/Shared/Category/Category";
+import MyOrder from "./Components/Dashboard/MyOrder/MyOrder";
+import MakeAdmin from "./Components/Dashboard/MakeAdmin/MakeAdmin";
+import ManageAllOrder from "./Components/Dashboard/ManageAllOrder/ManageAllOrder";
+import ManageProduct from "./Components/Dashboard/ManageProduct/ManageProduct";
+import ManageReview from "./Components/Dashboard/ManageReview/ManageReview";
+import Review from "./Components/Dashboard/Review/Review";
 
 function App() {
   // const discover = useSelector((state) => state.books.discover);
@@ -22,15 +29,31 @@ function App() {
     <div className="App">
       <AuthProvider>
         <Router>
-          <Navigation />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/products" element={<Products />} />
+            {/* <Route path="/products" element={<Products />} /> */}
+            <Route path="/category" element={<Category />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/addproduct" element={<AddProduct />} />
-            <Route path="/dashboard" element={<Dashboard></Dashboard>}/>
+
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            >
+              <Route path="/dashboard/addproduct" element={<AddProduct />} />
+              <Route path="/dashboard/myorder" element={<MyOrder />} />
+              <Route path="/dashboard/makeadmin" element={<AddProduct />} />
+              <Route path="/dashboard/makeadmin" element={<MakeAdmin/>} />
+              <Route path="/dashboard/manageallorder"element={<ManageAllOrder/>} />
+              <Route path="/dashboard/manageproduct"element={<ManageProduct/>} />
+              <Route path="/dashboard/manageallReview" element={<ManageReview/>} />
+              <Route path="/dashboard/review" element={<Review/>} />
+            </Route>
             <Route
               path="/purchase/:id"
               element={

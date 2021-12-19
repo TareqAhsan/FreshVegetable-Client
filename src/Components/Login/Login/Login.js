@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Alert, Container, Spinner, Button } from "react-bootstrap";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth.js";
+import Navigation from "../../Shared/Navigation/Navigation.js";
 // import useAuth from "../../../hooks/useAuth";
 // import useFirebase from "../../../hooks/useFirebase";
 const Login = () => {
@@ -31,6 +32,7 @@ const Login = () => {
   };
   return (
     <div>
+      <Navigation />
       <Container className="my-4">
         <h1 className="display-6">Please Login</h1>
         <form
@@ -75,9 +77,9 @@ const Login = () => {
         </form>
         {loading && (
           <Spinner
-          animation="grow"
-          variant="info"
-            style={{marginTop:'3px', width: "2rem", height: "2rem" }}
+            animation="grow"
+            variant="info"
+            style={{ marginTop: "3px", width: "2rem", height: "2rem" }}
           ></Spinner>
         )}
         {error && <Alert variant="danger">{error}</Alert>}
