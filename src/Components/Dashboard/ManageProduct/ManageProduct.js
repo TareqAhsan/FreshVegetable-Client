@@ -11,7 +11,9 @@ const ManageProduct = () => {
   }, [dispatch]);
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:5000/products/managedelete/${id}`)
+      .delete(
+        `https://morning-oasis-89625.herokuapp.com/products/managedelete/${id}`
+      )
       .then((result) => {
         if (result.data.deletedCount) {
           dispatch(fetchProducts());
@@ -24,7 +26,7 @@ const ManageProduct = () => {
     <div>
       <h1>This is Manage Product Page</h1>
       <Container className="py-4">
-        {allproduct.length}
+        {/* {allproduct.length} */}
         <Toaster position="top-center" reverseOrder={true} />
         <Row xs={1} md={2} lg={2} className="g-4">
           {allproduct?.map((product) => (

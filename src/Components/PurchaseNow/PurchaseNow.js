@@ -39,21 +39,24 @@ const PurchaseNow = () => {
       data.name = singleProduct?.name;
       data.price = singleProduct?.price;
       data.category = singleProduct?.category;
-      axios.post(`http://localhost:5000/addOrder`,data)
-      .then(result=>{
+      axios
+        .post(`https://morning-oasis-89625.herokuapp.com/addOrder`, data)
+        .then((result) => {
           if (result.data.insertedId) {
-              toast.success(`${user.displayName} You have Ordered successfully! `);
-              reset()
+            toast.success(
+              `${user.displayName} You have Ordered successfully! `
+            );
+            reset();
           }
-      });
+        });
     }
   };
   return (
     <div>
-      <Navigation/>
+      <Navigation />
       <h1 className="display-6 my-4">Confirm Order for {singleProduct.name}</h1>
       <Container>
-      <Toaster className="my-4" position="top-center" reverseOrder={true} />
+        <Toaster className="my-4" position="top-center" reverseOrder={true} />
         {exist ? (
           <Spinner
             className="my-5"

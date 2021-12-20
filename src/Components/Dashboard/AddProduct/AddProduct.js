@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { fetchProducts } from "../../../Redux/slices/productSlice";
 
 const AddProduct = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -14,7 +14,7 @@ const AddProduct = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    const { name, image, category, price} = data;
+    const { name, image, category, price } = data;
     if (!image) {
       return;
     }
@@ -25,7 +25,7 @@ const AddProduct = () => {
     formData.append("price", price);
     formData.append("image", image[0]);
 
-    fetch("http://localhost:5000/addproduct", {
+    fetch("https://morning-oasis-89625.herokuapp.com/addproduct", {
       method: "post",
       body: formData,
     })
@@ -34,7 +34,7 @@ const AddProduct = () => {
         console.log("Success:", result);
         if (result.insertedId) {
           toast.success("Product Added Successfully");
-          dispatch(fetchProducts())
+          dispatch(fetchProducts());
           reset();
         }
       })

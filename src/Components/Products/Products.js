@@ -13,20 +13,22 @@ const Products = () => {
 
   const handleChange = async (e) => {
     const search = e.target.value;
-    axios(`http://localhost:5000/products/search?val=${search}`).then(
-      (result) => {
-        if (result.data) {
-          setAllProduct(result.data);
-        }
+    axios(
+      `https://morning-oasis-89625.herokuapp.com/products/search?val=${search}`
+    ).then((result) => {
+      if (result.data) {
+        setAllProduct(result.data);
       }
-    );
+    });
     // dispatch(fetchSearch(search));
     // setAllProduct(true);
   };
   useEffect(() => {
-    axios("http://localhost:5000/products").then((result) => {
-      setAllProduct(result.data);
-    });
+    axios("https://morning-oasis-89625.herokuapp.com/products").then(
+      (result) => {
+        setAllProduct(result.data);
+      }
+    );
   }, []);
   // const products = useSelector((state) => state.products.discover);
   // const search = useSelector((state) => state.products.search);

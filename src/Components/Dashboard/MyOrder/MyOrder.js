@@ -16,11 +16,10 @@ const MyOrder = () => {
   useEffect(() => {
     dispatch(myOrder(user?.email));
   }, [user?.email, dispatch]);
-  const myorders = useSelector((state) => state.products.myOrder);
-  
+
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:5000/products/cancel/${id}`)
+      .delete(`https://morning-oasis-89625.herokuapp.com/products/cancel/${id}`)
       .then((result) => {
         if (result.data.deletedCount) {
           toast.success("Booking Successfully canceled!");
@@ -28,6 +27,7 @@ const MyOrder = () => {
         }
       });
   };
+  const myorders = useSelector((state) => state.products.myOrder);
   return (
     <div className="text-center">
       {/* <h1 className="text-center">This is my order</h1> */}
@@ -58,7 +58,10 @@ const MyOrder = () => {
                     <td>{mybook.phoneNo}</td>
                     <td>{mybook.status}</td>
                     <td>
-                      <Button size="sm" onClick={() => handleDelete(mybook?._id)}>
+                      <Button
+                        size="sm"
+                        onClick={() => handleDelete(mybook?._id)}
+                      >
                         cancel
                       </Button>
                     </td>

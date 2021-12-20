@@ -1,6 +1,6 @@
 import firebaseinit from "../Components/Login/Login/Firebase/firebaseinit";
 import swal from "sweetalert";
-
+import axios from "axios";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -37,7 +37,7 @@ const useFirebase = () => {
         })
           .then(() => {})
           .catch((error) => {});
-        // saveUsertoDb(email, name, "POST");
+        saveUsertoDb(email, displayName, "POST");
         setError("");
         navigate("/");
       })
@@ -88,7 +88,7 @@ const useFirebase = () => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
-        // saveUsertoDb(user.email, user.displayName, "PUT");
+        saveUsertoDb(user.email, user.displayName, "PUT");
         const redirect = location?.state?.from || "/";
         navigate(redirect);
       })
@@ -99,6 +99,7 @@ const useFirebase = () => {
           timer: 3000,
         });
         setError(error.message);
+        console.log(error.message);
       })
       .finally(() => setLoading(false));
   };
@@ -114,7 +115,7 @@ const useFirebase = () => {
         });
         setUser("");
         setError("");
-        navigate('/')
+        navigate("/");
       })
       .catch((error) => {
         setError(error.message);
@@ -133,6 +134,23 @@ const useFirebase = () => {
     });
     return () => unsubscribe;
   }, []);
+
+  useEffect(() => {
+    axios(
+      `https://morning-oasis-89625.herokuapp.com/users/admin/${user?.email}`
+    ).then((result) => setAdmin(result.data.admin));
+  }, [user?.email]);
+
+  const saveUsertoDb = (email, displayName, method) => {
+    const user = { email, displayName };
+    fetch(`https://morning-oasis-89625.herokuapp.com/users`, {
+      method: method,
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    }).then();
+  };
 
   return {
     registerUser,

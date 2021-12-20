@@ -12,6 +12,7 @@ import AuthProvider from "./Components/Context/AuthProvider";
 import Home from "./Components/Home/Home/Home";
 import AddProduct from "./Components/Dashboard/AddProduct/AddProduct";
 import PrivateRoute from "./Components/Login/PrivateRoute/PrivateRoute";
+import AdminRoute from "./Components/Login/AdminRoute/AdminRoute";
 import PurchaseNow from "./Components/PurchaseNow/PurchaseNow";
 import Dashboard from "./Components/Dashboard/Dashboard/Dashboard";
 import Products from "./Components/Products/Products";
@@ -45,14 +46,49 @@ function App() {
                 </PrivateRoute>
               }
             >
-              <Route path="/dashboard/addproduct" element={<AddProduct />} />
+              {/* <Route path="/dashboard/addproduct" element={<AddProduct />} /> */}
               <Route path="/dashboard/myorder" element={<MyOrder />} />
-              <Route path="/dashboard/makeadmin" element={<AddProduct />} />
-              <Route path="/dashboard/makeadmin" element={<MakeAdmin/>} />
-              <Route path="/dashboard/manageallorder"element={<ManageAllOrder/>} />
-              <Route path="/dashboard/manageproduct"element={<ManageProduct/>} />
-              <Route path="/dashboard/manageallReview" element={<ManageReview/>} />
-              <Route path="/dashboard/review" element={<Review/>} />
+              <Route
+                path="/dashboard/addproduct"
+                element={
+                  <AdminRoute>
+                    <AddProduct />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/dashboard/makeadmin"
+                element={
+                  <AdminRoute>
+                    <MakeAdmin />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/dashboard/manageallorder"
+                element={
+                  <AdminRoute>
+                    <ManageAllOrder />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/dashboard/manageproduct"
+                element={
+                  <AdminRoute>
+                    <ManageProduct />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/dashboard/manageallReview"
+                element={
+                  <AdminRoute>
+                    <ManageReview />
+                  </AdminRoute>
+                }
+              />
+              <Route path="/dashboard/review" element={<Review />} />
             </Route>
             <Route
               path="/purchase/:id"
